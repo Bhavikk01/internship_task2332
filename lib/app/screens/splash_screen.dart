@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _SplashScreenState(){
 
-    Timer(const Duration(milliseconds: 4000), (){
+    Timer(const Duration(milliseconds: 4500), (){
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const SignInPage()), (route) => false);
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Theme.of(context).colorScheme.secondary, const Color(0xff00c2cb)],
+          colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).colorScheme.secondary.withOpacity(0.4)],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
           stops: const [0.0, 1.0],
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       child: AnimatedOpacity(
         opacity: _isVisible ? 1.0 : 0,
-        duration: const Duration(milliseconds: 2000),
+        duration: const Duration(milliseconds: 2500),
         child: CircleAvatar(
           radius: 25,
           backgroundColor: Colors.transparent,
