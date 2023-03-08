@@ -1,6 +1,6 @@
 # internship_task
 
-Created the Screen 1 from Set-A and Screen 1 from Set-B
+Created the Screen 1 and 2 from Set-A and Screen 1 from Set-B
 
 ## Screenshots
 <div style="padding:100px 100px;">
