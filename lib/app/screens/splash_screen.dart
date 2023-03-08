@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).primaryColor],
+          colors: [Theme.of(context).colorScheme.secondary, const Color(0xff00c2cb)],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
           stops: const [0.0, 1.0],
@@ -47,28 +47,14 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       child: AnimatedOpacity(
         opacity: _isVisible ? 1.0 : 0,
-        duration: const Duration(milliseconds: 1200),
-        child: Center(
-          child: Container(
-            height: 140.0,
-            width: 140.0,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 2.0,
-                    offset: const Offset(5.0, 3.0),
-                    spreadRadius: 2.0,
-                  )
-                ]
-            ),
-            child: const Center(
-              child: ClipOval(
-                child: Icon(Icons.android_outlined, size: 128,), //put your logo here
-              ),
-            ),
+        duration: const Duration(milliseconds: 2000),
+        child: CircleAvatar(
+          radius: 25,
+          backgroundColor: Colors.transparent,
+          child: Image.asset(
+            'assets/logo.png',
+            height: 150,
+            width: 150,
           ),
         ),
       ),

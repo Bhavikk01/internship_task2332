@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade100,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey,).copyWith(secondary: const Color(0xff041c50)),
       ),
-      home: const SignInPage(),
+      home: const SplashScreen(),
     );
   }
 }
