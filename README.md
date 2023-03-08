@@ -3,7 +3,9 @@
 Created the Screen 1 from Set-A and Screen 1 from Set-B
 
 ## Screenshots
-<img src="https://github.com/FlutterTutorialNet/internship_task2332/raw/main/assets/images/Screenshot/flutter-login-registration-profile-password-verification-ui-design.jpg"> 
+<img src="https://github.com/Bhavikk01/internship_task2332/blob/main/assets/Screenshot_20230308_022032.png">
+<img src="https://github.com/Bhavikk01/internship_task2332/blob/main/assets/Screenshot_20230308_022108.png">
+<img src="https://github.com/Bhavikk01/internship_task2332/blob/main/assets/Screenshot_20230308_022649.png">
 
 ## App UI
 1. Splash Screen
