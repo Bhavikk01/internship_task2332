@@ -14,3 +14,4 @@ Created the Screen 1 from Set-A and Screen 1 from Set-B
 1. Splash Screen
 2. Login Form
 3. Registration Form
+4. Timeline Scroll view
