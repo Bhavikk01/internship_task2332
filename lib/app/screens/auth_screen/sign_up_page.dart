@@ -206,7 +206,7 @@ class _SignUpPageState extends State<SignUpPage>{
                               if (_formKey.currentState!.validate()) {
                                 bool isValidLogin = await FirebaseFireStore.to.handleSignUp(emailController.text, passwordController.text, ('${firstNameController.text} ${lastNameController.text}'), phoneController.text);
                                 if(isValidLogin){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MapScreen()));
                                 }else{
                                   Fluttertoast.showToast(
                                       msg: "Invalid Credentials",

@@ -1,21 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internship_task/app/screens/auth_screen/sign_in_page.dart';
 import 'package:internship_task/app/screens/home_screen/home_page.dart';
+import 'package:internship_task/app/screens/splash_screen.dart';
 import 'package:internship_task/app/services/storage.dart';
 import 'package:internship_task/app/services/user.dart';
 
-import 'app/screens/splash_screen.dart';
+import 'app/screens/home_screen/getx_helper/controller.dart';
 import 'app/services/firebase.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyCbqR5BJdZUVKFY4DoPUc61z20rBdnb5Yk",
+      appId: "1:746912992424:ios:d1f78a8ea3d92d3593869d",
+      messagingSenderId: "746912992424",
+      projectId: "internship-task-2332",
+    ),
   );
   Get.put<FirebaseFireStore>(FirebaseFireStore());
+  Get.put<MapController>(MapController());
   await Get.putAsync<StorageService>(() => StorageService().init());
   Get.put<UserStore>(UserStore());
   runApp(const MyApp());

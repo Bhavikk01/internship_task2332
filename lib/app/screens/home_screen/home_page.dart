@@ -1,179 +1,109 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:internship_task/app/screens/home_screen/getx_helper/controller.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+import '../../utils/theme_helper.dart';
 
-  final List<ContestRound> contestRounds = [
-    ContestRound(
-        name: 'Qualifying',
-        date: [DateTime(2023, 3, 10), DateTime(2023, 3, 10)], subtitle: 'This is the subtitle for this task and now just have to submit the code to the github and write the readme file. So just doing and then submitting the assignment to internshala chat window for review'),
-    ContestRound(name: 'Quarterfinals', date: [DateTime(2023, 3, 12)], subtitle: 'Hello this is the subtitle'),
-    ContestRound(name: 'Semifinals', date: [DateTime(2023, 3, 15)], subtitle: 'Hello this is the subtitle'),
-    ContestRound(name: 'Finals', date: [DateTime(2023, 3, 18)],subtitle: 'Hello this is the subtitle'),
-  ];
+class MapScreen extends GetView<MapController> {
+  MapScreen({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Contest Schedule',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: contestRounds.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                ContestRound round = contestRounds[index];
-                bool isLast = index == contestRounds.length - 1;
-                return TimelineTile(
-                  title: round.name,
-                  isLast: isLast,
-                  dateList: round.date,
-                  subtitle: round.subtitle,
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ContestRound {
-  final String name;
-  final String subtitle;
-  final List<DateTime> date;
-
-
-  ContestRound({required this.name, required this.date, required this.subtitle});
-}
-
-class TimelineTile extends StatelessWidget {
-  final String title;
-  final bool isLast;
-  final String subtitle;
-  final List<DateTime> dateList;
-
-  const TimelineTile({
-    Key? key,
-    required this.title,
-    required this.dateList,
-    required this.subtitle,
-    this.isLast = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadiusDirectional.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '${dateList[0].day}th',
-                style: const TextStyle(color: Colors.white),
-              ),
-              const Text(
-                'Nov',
-                style: TextStyle(color: Colors.white),
-              ),
-              dateList.length != 1
-                  ? Column(
-                      children: [
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        Container(
-                          width: 2,
-                          height: isLast ? 0 : 70,
-                          color: Colors.grey[300],
-                        ),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                      ],
-                    )
-                  : Container(),
-              dateList.length != 1
-                  ? Column(
-                      children: [
-                        Text(
-                          '${dateList[1].day}th',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        const Text(
-                          'Nov',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    )
-                  : Container(),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 20),
-            constraints:
-                BoxConstraints(minHeight: dateList.length != 1 ? 170 : 0),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            width: 290,
-            decoration: BoxDecoration(
-                color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                const SizedBox(height: 5,),
-                Text(
-                  subtitle,
-                  maxLines: 10,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
+    controller.navigateToCurrentLocation();
+    return Form(
+      key: _formKey,
+      child: SafeArea(
+        child: Scaffold(
+          body: Obx(
+            () => SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: controller.initialPosition.value,
+                        zoom: 16,
+                      ),
+                      onTap: (latLng) {
+                        log(latLng.toString());
+                        controller.zonePoints.add(latLng);
+                        controller.addPolygon();
+                      },
+                      zoomControlsEnabled: false,
+                      markers: Set<Marker>.of(controller.zoneMarkers),
+                      compassEnabled: false,
+                      polygons: controller.polygon.value,
+                      indoorViewEnabled: true,
+                      mapToolbarEnabled: false,
+                      onMapCreated: (GoogleMapController mapController) {
+                        controller.setMapController(mapController);
+                      },
+                    ),
                   ),
-                ),
-              ],
+                  Positioned(
+                    top: 30,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width/1.5,
+                            decoration: ThemeHelper().inputBoxDecorationShadow(),
+                            child: TextFormField(
+                              controller: controller.zoneController,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return "The zone name can't be empty";
+                                }
+                                return null;
+                              },
+                              decoration: ThemeHelper().textInputDecoration(
+                                  'Zone name', 'Enter your zone name'),
+                            ),
+                          ),
+                          Container(
+                            decoration:
+                                ThemeHelper().buttonBoxDecoration(context),
+                            child: ElevatedButton(
+                              style: ThemeHelper().buttonStyle(),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                child: Text(
+                                  'Submit'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  await controller.uploadingZoneInfoToDatabase();
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

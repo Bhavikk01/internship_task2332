@@ -29,6 +29,13 @@
             {
               "client_id": "746912992424-q8slk1p5n64nrhs95bu6f3lscjedq4fl.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "746912992424-nju9s7s3cair7eiu8iuumlqsdjgvdj9b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.internshipTask"
+              }
             }
           ]
         }
