@@ -28,7 +28,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: const Color(0xff041c50),
           scaffoldBackgroundColor: Colors.grey.shade100,
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey,).copyWith(secondary: const Color(0xff041c50)),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.grey,).copyWith(secondary: const Color(0xff041c50),
+            primary: const Color(0xe2272728),
+          ),
         ),
         initialRoute: RoutePaths.splashScreen,
         getPages: RouteClass.routes,

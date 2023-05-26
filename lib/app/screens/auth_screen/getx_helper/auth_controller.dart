@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -19,9 +20,10 @@ class AuthController extends GetxController {
       'https://test-otp-api.7474224.xyz/sendotp.php',
       {'mobile': phoneNumber.text},
     );
-    log('This is the phone verification response: ${res.body}');
-    if (res.body['status'] == true) {
-      requestId = res.body['request_id'];
+    var jsonData = jsonDecode(res.body);
+    log('This is the phone verification response: $jsonData');
+    if (jsonData['status'] == true) {
+      requestId = jsonData['request_id'];
       Get.toNamed(RoutePaths.otpVerificationScreen);
     } else {
       Fluttertoast.showToast(
@@ -41,15 +43,17 @@ class AuthController extends GetxController {
       isLoading.value = true;
       try {
         Response res = await ApiClient.to.postData(
-          'http://localhost/sample-api-login/verifyotp.php',
+          'https://test-otp-api.7474224.xyz/verifyotp.php',
             {
               "request_id": requestId,
               "code": otpController.text
             },
         );
         isLoading.value = false;
-        log('This is the otp verification response: ${res.body}');
-        if (res.body['status'] == true) {
+        var jsonData = jsonDecode(res.body);
+        log('This is the otp verification response: $jsonData');
+        if (jsonData['status'] == true) {
+          ApiClient.to.token = jsonData['jwt'].toString();
           return true;
         } else {
           return false;

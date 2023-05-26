@@ -8,28 +8,21 @@ import 'getx_helper/auth_controller.dart';
 class SignInPage extends GetView<AuthController> {
   SignInPage({Key? key}) : super(key: key);
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        toolbarHeight: 20.h,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 20.h,
             ),
             Text(
-              'SignIn',
+              'Sign In',
               style: TextStyle(color: Colors.white60, fontSize: 15.sp),
             ),
             SizedBox(
@@ -46,55 +39,66 @@ class SignInPage extends GetView<AuthController> {
             SizedBox(
               height: 30.h,
             ),
-            Expanded(
-              child: TextField(
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+            TextField(
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+                letterSpacing: 2,
+              ),
+              keyboardType: TextInputType.number,
+              controller: controller.phoneNumber,
+              inputFormatters: [LengthLimitingTextInputFormatter(10)],
+              decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                labelText: "Phone Number",
+                labelStyle: TextStyle(
                   color: Colors.white,
-                  letterSpacing: 2,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0,
                 ),
-                keyboardType: TextInputType.number,
-                controller: controller.phoneNumber,
-                inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  labelText: "Phone Number",
-                  labelStyle: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white24,
-                ),
+                filled: true,
+                fillColor: Colors.white24,
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 30.h,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.w),
               child: ElevatedButton(
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    if (controller.validate()) {
-                      await controller.handleSignInByPhone();
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "Invalid Phone Number",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.grey[300],
-                        textColor: Colors.black,
-                        fontSize: 16.0,
-                      );
-                    }
+                  if (controller.validate()) {
+                    await controller.handleSignInByPhone();
+                  } else {
+                    Get.snackbar(
+                      '',
+                      '',
+                      titleText: Text(
+                        'Phone Number',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.sp
+                        ),
+                      ),
+                      messageText: Text(
+                        'Please enter a valid phone number',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.sp
+                        ),
+                      ),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 10.w,
+                      ),
+                      backgroundColor: Colors.grey[300],
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
                   }
                 },
                 child: Container(
@@ -102,7 +106,7 @@ class SignInPage extends GetView<AuthController> {
                   child: Text(
                     "Get OTP",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 18.sp,
                     ),

@@ -1,6 +1,9 @@
 
 import 'package:get/get.dart';
 import 'package:internship_task/app/routes/route_path.dart';
+import 'package:internship_task/app/screens/home_screen/home_page.dart';
+import 'package:internship_task/app/screens/set_up_profile/set_up_binding.dart';
+import 'package:internship_task/app/screens/set_up_profile/set_up_profile.dart';
 
 import '../screens/auth_screen/getx_helper/auth_binding.dart';
 import '../screens/auth_screen/otp_verification_screen.dart';
@@ -31,6 +34,17 @@ class RouteClass {
     GetPage(
       name: RoutePaths.otpVerificationScreen,
       page: () => const OtpVerificationScreen(),
+    ),
+
+    GetPage(
+      name: RoutePaths.homeScreen,
+      page: () => const HomePage(),
+    ),
+
+    GetPage(
+      name: RoutePaths.setUpProfile,
+      page: () => SetUpProfile(),
+      binding: SetUpBinding()
     ),
 
   ];

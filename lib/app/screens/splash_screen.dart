@@ -35,13 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).colorScheme.secondary.withOpacity(0.4)],
-          begin: const FractionalOffset(0, 0),
-          end: const FractionalOffset(1.0, 0.0),
-          stops: const [0.0, 1.0],
-          tileMode: TileMode.clamp,
-        ),
+        color: Theme.of(context).colorScheme.primary
       ),
       child: AnimatedOpacity(
         opacity: _isVisible ? 1.0 : 0,

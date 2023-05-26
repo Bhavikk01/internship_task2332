@@ -15,19 +15,14 @@ class OtpVerificationScreen extends GetView<AuthController> {
     controller.decrementSeconds();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        toolbarHeight: 20.h,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 20.h,
+              height: 40.h,
             ),
             Text(
               'Hey 👋',
@@ -38,18 +33,17 @@ class OtpVerificationScreen extends GetView<AuthController> {
             ),
             Text(
               'Enter Your OTP Here',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.w700,
-                ),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25.sp,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             Padding(
-              padding: EdgeInsets.only(
-                  top: 25.w, bottom: 15.w, left: 5.w, right: 5.w),
+              padding: EdgeInsets.only(top: 25.w, bottom: 15.w, left: 5.w, right: 5.w),
               child: Center(
                 child: PinCodeTextField(
                   autoDisposeControllers: false,
@@ -57,31 +51,30 @@ class OtpVerificationScreen extends GetView<AuthController> {
                   length: 6,
                   obscureText: false,
                   animationType: AnimationType.none,
-                  cursorColor: Colors.black,
+                  cursorColor: Colors.white,
                   enableActiveFill: true,
                   pinTheme: PinTheme(
-                    fieldOuterPadding:
-                    EdgeInsets.symmetric(horizontal: 2.w),
+                    fieldOuterPadding: EdgeInsets.symmetric(horizontal: 2.w),
                     inactiveColor: Colors.transparent,
                     selectedColor: Colors.transparent,
                     // borderWidth: 0,
-                    selectedFillColor:
-                    Theme.of(context).colorScheme.primary,
+                    selectedFillColor: Theme.of(context).colorScheme.primary,
                     activeColor: Theme.of(context).colorScheme.primary,
                     activeFillColor: Theme.of(context).colorScheme.primary,
-                    inactiveFillColor:
-                    Theme.of(context).colorScheme.primary,
+                    inactiveFillColor: Theme.of(context).colorScheme.primary,
                     errorBorderColor: null,
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.zero,
                     fieldHeight: 50,
                     fieldWidth: 40,
                   ),
+                  textStyle: TextStyle(
+                    fontSize: 16.sp,
+                    color: Colors.white
+                  ),
                   animationDuration: const Duration(milliseconds: 300),
                   onCompleted: (value) {},
-                  onChanged: (value) {
-
-                  },
+                  onChanged: (value) {},
                   beforeTextPaste: (text) {
                     return true;
                   },
@@ -90,26 +83,35 @@ class OtpVerificationScreen extends GetView<AuthController> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20.h,
-            ),
             Obx(
               () => Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
+                padding: EdgeInsets.symmetric(vertical: 8.h),
                 child: ElevatedButton(
-                    onPressed: () async {
-                      if (!controller.isLoading.value && await controller.validateOtp()) {
-                        Get.offAllNamed(RoutePaths.homeScreen);
-                      }
-                    },
-                    child: !controller.isLoading.value
-                        ? const Text(
+                  onPressed: () async {
+                    if (!controller.isLoading.value &&
+                        await controller.validateOtp()) {
+                      Get.offAllNamed(RoutePaths.setUpProfile);
+                    }
+                  },
+                  child: !controller.isLoading.value
+                      ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                        child: Text(
                             "Verify",
                             style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        : SizedBox(height: 15.h, width: 15.w,child: const CircularProgressIndicator())),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.sp
+                            ),
+                          ),
+                      )
+                      : Container(
+                          height: 38.h,
+                          width: 38.w,
+                          padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 8.w),
+                          child: const CircularProgressIndicator(color: Colors.white),
+                        ),
+                ),
               ),
             ),
 
