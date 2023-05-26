@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../models/users/user_model.dart';
 import '../services/storage.dart';
-import 'firebase.dart';
 
 class UserStore extends GetxController {
   static UserStore get to => Get.find();
@@ -41,7 +40,7 @@ class UserStore extends GetxController {
   Future<void> getProfile() async {
     uid = StorageService.to.getString(userIdKey);
     if (uid.isNotEmpty) {
-      _profile(await FirebaseFireStore.to.getUser(uid));
+      // _profile(await FirebaseFireStore.to.getUser(uid));
     }
     _isLogin.value = true;
   }

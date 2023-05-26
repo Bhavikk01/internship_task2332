@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'auth_screen/sign_in_page.dart';
-
+import 'package:get/get.dart';
+import 'package:internship_task/app/routes/route_path.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,8 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(milliseconds: 4500), (){
       setState(() {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const SignInPage()), (route) => false);
+        Get.offAllNamed(RoutePaths.mobileVerifyScreen);
       });
     });
 

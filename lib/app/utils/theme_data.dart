@@ -4,9 +4,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ThemeHelper{
 
-  InputDecoration textInputDecoration([String lableText="", String hintText = ""]){
+  InputDecoration textInputDecoration([String labelText="", String hintText = ""]){
     return InputDecoration(
-      labelText: lableText,
+      labelText: labelText,
       hintText: hintText,
       fillColor: Colors.white,
       filled: true,
@@ -30,7 +30,7 @@ class ThemeHelper{
 
   BoxDecoration buttonBoxDecoration(BuildContext context, [String color1 = "", String color2 = ""]) {
     Color c1 = Theme.of(context).primaryColor;
-    Color c2 = Theme.of(context).accentColor;
+    Color c2 = Theme.of(context).primaryColorDark;
     if (color1.isEmpty == false) {
       c1 = HexColor(color1);
     }
@@ -88,9 +88,4 @@ class ThemeHelper{
       ],
     );
   }
-
-}
-
-class LoginFormStyle{
-
 }
