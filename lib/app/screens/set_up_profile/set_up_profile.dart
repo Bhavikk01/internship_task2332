@@ -101,7 +101,7 @@ class SetUpProfile extends GetView<SetUpProfileController> {
                           TextFormField(
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                              color: Colors.black,
                               letterSpacing: 2,
                             ),
                             keyboardType: TextInputType.emailAddress,
