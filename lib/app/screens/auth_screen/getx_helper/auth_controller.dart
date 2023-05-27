@@ -14,6 +14,7 @@ class AuthController extends GetxController {
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
   String requestId = '';
+  Rx<bool> isValid = false.obs;
 
   handleSignInByPhone() async {
     Response res = await ApiClient.to.postData(
@@ -84,8 +85,8 @@ class AuthController extends GetxController {
     }
   }
 
-  bool validate() {
-    return (int.tryParse(phoneNumber.text) != null) &&
+  validate() {
+    isValid.value = (int.tryParse(phoneNumber.text) != null) &&
         phoneNumber.text.length == 10;
   }
 
