@@ -117,7 +117,7 @@ class SetUpProfile extends GetView<SetUpProfileController> {
                             ),
                             labelText: "Email",
                             labelStyle: const TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 0,
                             ),
