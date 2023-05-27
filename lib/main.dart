@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             // primary: const Color(0xe2272728),
           ),
         ),
-        initialRoute: RoutePaths.splashScreen,
+        initialRoute: RoutePaths.setUpProfile,
         getPages: RouteClass.routes,
       ),
     );
